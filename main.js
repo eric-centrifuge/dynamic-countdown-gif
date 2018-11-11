@@ -12,10 +12,12 @@ document.addEventListener('DOMContentLoaded', function ()
 				red : 255,
 				green : 255,
 				blue : 255,
-			} 
+			}
+
+			this.font = 'FrutigerLTStd-Black.ttf';
 		}
 
-		buildQuery()
+		buildQuery ()
 		{
 			let instance = this;
 			let querystr = '?';
@@ -32,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function ()
 				(arr.length > index + 1) ? bgcolor += instance.bgcolor[key] + ',' : bgcolor += instance.bgcolor[key];
 			});
 
-			querystr += 'fontcolor=' + fontcolor + '&bgcolor=' + bgcolor;
+			querystr += `font=${this.font}&fontcolor=${fontcolor}&bgcolor=${bgcolor}`;
 
 			return querystr;
 		}
@@ -48,13 +50,13 @@ document.addEventListener('DOMContentLoaded', function ()
 
 	options.querySelectorAll('.font-color input[type="range"]').forEach(function(input)
 	{
-		input.onchange = function()
+		input.onchange = function ()
 		{
 			gifopts.fontcolor[input.name] = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 
-		input.oninput = function()
+		input.oninput = function ()
 		{
 			options.querySelector('.font-color input[type="number"][name="' + input.name + '"]').value = input.value;
 		};
@@ -62,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function ()
 
 	options.querySelectorAll('.font-color input[type="number"]').forEach(function(input)
 	{
-		input.onchange = function()
+		input.onchange = function ()
 		{
 			gifopts.fontcolor[input.name] = input.value;
 			options.querySelector('.font-color input[type="range"][name="' + input.name + '"]').value = input.value;
@@ -74,14 +76,14 @@ document.addEventListener('DOMContentLoaded', function ()
 
 	options.querySelectorAll('.bg-color input[type="range"]').forEach(function(input)
 	{
-		input.onchange = function()
+		input.onchange = function ()
 		{
 			gifopts.bgcolor[input.name] = input.value;
 			options.querySelector('.bg-color input[type="range"][name="' + input.name + '"]').value = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 
-		input.oninput = function()
+		input.oninput = function ()
 		{
 			options.querySelector('.bg-color input[type="number"][name="' + input.name + '"]').value = input.value;
 		};
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function ()
 
 	options.querySelectorAll('.bg-color input[type="number"]').forEach(function(input)
 	{
-		input.onchange = function()
+		input.onchange = function ()
 		{
 			gifopts.bgcolor[input.name] = input.value;
 			options.querySelector('.bg-color input[type="range"][name="' + input.name + '"]').value = input.value;
@@ -97,5 +99,16 @@ document.addEventListener('DOMContentLoaded', function ()
 		};
 	});
 
+	// Update font
+
+	options.querySelector('#font').onchange = function (evt)
+	{
+		gifopts.font = evt.target.value;
+		image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+	}
+
+	// Initialize
+
 	image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+	options.querySelector('#font').value = gifopts.font;
 });

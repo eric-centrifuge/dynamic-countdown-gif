@@ -13,6 +13,15 @@
 		</div>
 
 		<div class="options">
+			<div class="fonts">
+				<h2>Font</h2>
+				<select name="font" id="font">
+					<?php foreach (glob("*.ttf") as $font): ?>
+					<option><?php echo $font ?></option>
+					<?php endforeach; ?>
+				</select>	
+			</div>
+
 			<div class="font-color">
 				<h2>Font Color</h2>
 				<div class="color-range">

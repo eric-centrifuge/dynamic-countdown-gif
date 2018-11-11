@@ -7,6 +7,7 @@ class GIFCounter extends AnimatedGif
 	public $frames;
 	public $delays;
 	public $loops;
+	public $font;
 	public $fontcolor;
 	public $bgcolor;
 	public $now;
@@ -17,6 +18,8 @@ class GIFCounter extends AnimatedGif
 		$this->frames = [];
 		$this->delays = [];
 		$this->loops = 0;
+		$this->font = $_GET['font'] ?? 'Verdana.ttf';
+		$this->font_dir = './fonts/';
 		$this->fontcolor = '0,0,0';
 		$this->bgcolor = '255,255,255';
 		$this->now = date_create('now');
@@ -32,29 +35,105 @@ class GIFCounter extends AnimatedGif
 		$timestamps = $this->createTimeStamps();
 
 		foreach ($timestamps as $timestamp):
-			$counter = 
+			// $counter = 
+			// [
+			// 	'size'		=> 52,
+			// 	'angle'		=> 0,
+			// 	'x_offset'	=> 0,
+			// 	'y_offset'	=> -20,
+			// 	'content'	=> $timestamp,
+			// 	'column'	=> 1,
+			// ];
+
+			$days = 
 			[
 				'size'		=> 52,
 				'angle'		=> 0,
-				'x_offset'	=> 90,
-				'y_offset'	=> 110,
-				'font_path'	=> './FrutigerLTStd-Black.ttf',
-				'content'	=> $timestamp,
+				'x_offset'	=> 0,
+				'y_offset'	=> -20,
+				'content'	=> $timestamp['days'],
+				'column'	=> 1,
 			];
-
-			$text = 
+			
+			$days_label = 
 			[
 				'size'		=> 12,
 				'angle'		=> 0,
-				'x_offset'	=> 108,
-				'y_offset'	=> 140,
-				'font_path'	=> './FrutigerLTStd-Black.ttf',
-				'content'	=> 'DAYS           HOURS         MINUTES       SECONDS',
+				'x_offset'	=> 0,
+				'y_offset'	=> 20,
+				'content'	=> 'DAYS',
+				'column'	=> 1,
+			];
+
+			$hours = 
+			[
+				'size'		=> 52,
+				'angle'		=> 0,
+				'x_offset'	=> 0,
+				'y_offset'	=> -20,
+				'content'	=> $timestamp['hours'],
+				'column'	=> 2,
+			];
+
+			$hours_label = 
+			[
+				'size'		=> 12,
+				'angle'		=> 0,
+				'x_offset'	=> 0,
+				'y_offset'	=> 20,
+				'content'	=> 'HOURS',
+				'column'	=> 2,
+			];
+
+			$minutes = 
+			[
+				'size'		=> 52,
+				'angle'		=> 0,
+				'x_offset'	=> 0,
+				'y_offset'	=> -20,
+				'content'	=> $timestamp['minutes'],
+				'column'	=> 3,
+			];
+
+			$minutes_label = 
+			[
+				'size'		=> 12,
+				'angle'		=> 0,
+				'x_offset'	=> 0,
+				'y_offset'	=> 20,
+				'content'	=> 'MINUTES',
+				'column'	=> 3,
+			];
+
+			$seconds = 
+			[
+				'size'		=> 52,
+				'angle'		=> 0,
+				'x_offset'	=> 0,
+				'y_offset'	=> -20,
+				'content'	=> $timestamp['seconds'],
+				'column'	=> 4,
+			];
+
+			$seconds_label = 
+			[
+				'size'		=> 12,
+				'angle'		=> 0,
+				'x_offset'	=> 0,
+				'y_offset'	=> 20,
+				'content'	=> 'SECONDS',
+				'column'	=> 4,
 			];
 
 			$frame = $this->createFrame();
-			$this->addText($frame, $counter);
-			$this->addText($frame, $text);
+			$this->addText($frame, $days);
+			$this->addText($frame, $days_label);
+			$this->addText($frame, $hours);
+			$this->addText($frame, $hours_label);
+			$this->addText($frame, $minutes);
+			$this->addText($frame, $minutes_label);
+			$this->addText($frame, $seconds);
+			$this->addText($frame, $seconds_label);
 			$this->addFrame($frame);
 			$this->delays[] = 100;
 
@@ -108,12 +187,17 @@ class GIFCounter extends AnimatedGif
 			endif;
 
 			$date_diff = $this->now->diff($this->end_date);
+
+			$timestamp = [
+				'days'		=> $date_diff->format('%a'),
+				'hours' 	=> $date_diff->format('%H'),
+				'minutes'	=> $date_diff->format('%I'),
+				'seconds'	=> $date_diff->format('%S'),
+			];
 			
 			// add leading zero if days left are less than 10
 			if (strlen($date_diff->format('%a')) < 2):
-				$timestamp = $date_diff->format('0%a %H %I %S');
-			else:
-				$timestamp = $date_diff->format('%a %H %I %S');
+				$timestamp['days'] = $date_diff->format('0%a');
 			endif;
 
 			$timestamps[] = $timestamp;
@@ -135,14 +219,51 @@ class GIFCounter extends AnimatedGif
 
 	private function addText($img, array $text)
 	{
+		// grab image/text dimensions
+		$textbox = imagettfbbox(
+			$text['size'] ?? 47,
+			$text['angle'] ?? 45,
+			$this->font_dir . $this->font,
+			$text['content'] ?? ''
+		);
+
+		$columwidth = (imagesx($img)/4);
+		$xpos;
+
+		// print_r((imagesx($img)/2) + (imagesx($img)/4));
+		// die();
+
+		// column placement
+		switch ($text['column']) {
+			case '1':
+				$xpos = 0 + ($columwidth - $textbox[2])/2;
+				break;
+			
+			case '2':
+				$xpos = ($columwidth*2) - ($columwidth) + ($columwidth - $textbox[2])/2;
+				break;
+
+			case '3':
+				$xpos = ($columwidth*2) + ($columwidth - $textbox[2])/2;
+				break;
+
+			case '4':
+				$xpos = ($columwidth*2) + ($columwidth) + ($columwidth - $textbox[2])/2;
+				break;
+
+			default:
+				$xpos = 0 + ($columwidth - $textbox[2])/2;
+				break;
+		}
+
 		imagettftext(
 			$img,
 			$text['size'] ?? 47,
 			$text['angle'] ?? 0,
-			$text['x_offset'] ?? 0,
-			$text['y_offset'] ?? 60,
+			$xpos + ($text['x_offset'] ?? 0),
+			(imagesy($img) - $textbox[5])/2 + ($text['y_offset'] ?? 0),
 			$this->fontcolor,
-			$text['font_path'] ?? './Verdana.ttf',
+			$this->font_dir . $this->font,
 			$text['content'] ?? ''
 		);
 	}
