@@ -41,7 +41,7 @@ array_shift($fonts);
 				</div>
 			</div>
 
-			<div class="font-size">
+			<div class="font-position">
 				<h3>Positioning</h3>
 				<div class="">
 					<label for="fsize1">Timestamp X Offset</label>

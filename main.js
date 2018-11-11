@@ -80,9 +80,9 @@ document.addEventListener('DOMContentLoaded', function ()
 		};
 	});
 
-	// Update Font Size
+	// Update Font Size/Position
 
-	options.querySelectorAll('.font-size input[type="number"]').forEach(function(input)
+	options.querySelectorAll('.font-size input[type="number"],.font-position input[type="number"]').forEach(function(input)
 	{
 		input.onchange = function ()
 		{
