@@ -1,0 +1,109 @@
+html, body
+{
+	min-height: 100vh;
+	font-family: sans-serif;
+}
+
+.flex-center
+{
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+}
+
+/* Display
+*********************/
+
+.gifdisplay
+{
+	min-height: 200px;
+	position: relative;
+}
+
+.gifdisplay img
+{
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+.gifdisplay:before
+{
+	content: '';
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 20px;
+	height: 20px;
+	background: rgba(0,0,0,1);
+	border-radius: 50%;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	animation: loading .7s linear infinite;
+}
+
+@keyframes loading
+{
+	0% {
+		transform: rotateY(0deg);
+	}
+
+	to {
+		transform: rotateY(360deg);
+	}
+}
+
+/* Color Options
+*********************/
+
+.color-range
+{
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.color-range > *
+{
+	flex: 1 1 auto;
+}
+
+.color-range input[type="number"]
+{
+	background: none;
+	border: none;
+	text-align: right;
+	padding: 10px;
+}
+
+.color-range input[type="range"]
+{
+	width: 100%;
+	margin: 15px 0;
+	display: block;
+}
+
+.color-range label
+{
+	flex: 0 1 50%;
+	font-weight: 700;
+}
+
+.color-range label[for="red"]
+{
+	color: rgba(200,0,0);
+}
+
+.color-range label[for="green"]
+{
+	color: rgba(0,200,0);
+}
+
+.color-range label[for="blue"]
+{
+	color: rgba(0,0,200);
+}
