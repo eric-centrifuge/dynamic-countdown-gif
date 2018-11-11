@@ -4,21 +4,18 @@ include 'GIFEncoder.php';
 
 class GIFCounter extends AnimatedGif
 {
-	public $frames;
-	public $delays;
-	public $loops;
-	public $font;
-	public $fontcolor;
-	public $bgcolor;
-	public $now;
-	public $end_date;
-
 	function __construct()
 	{
 		$this->frames = [];
 		$this->delays = [];
 		$this->loops = 0;
 		$this->font = $_GET['font'] ?? 'Verdana.ttf';
+		$this->fontsize1 = $_GET['fsize1'] ?? 52;
+		$this->fontsize2 = $_GET['fsize2'] ?? 12;
+		$this->font1xoffset = $_GET['f1xoffset'] ?? 0;
+		$this->font1yoffset = $_GET['f1yoffset'] ?? -20;
+		$this->font2xoffset = $_GET['f2xoffset'] ?? 0;
+		$this->font2yoffset = $_GET['f2yoffset'] ?? 20;
 		$this->font_dir = './fonts/';
 		$this->fontcolor = '0,0,0';
 		$this->bgcolor = '255,255,255';
@@ -35,92 +32,82 @@ class GIFCounter extends AnimatedGif
 		$timestamps = $this->createTimeStamps();
 
 		foreach ($timestamps as $timestamp):
-			// $counter = 
-			// [
-			// 	'size'		=> 52,
-			// 	'angle'		=> 0,
-			// 	'x_offset'	=> 0,
-			// 	'y_offset'	=> -20,
-			// 	'content'	=> $timestamp,
-			// 	'column'	=> 1,
-			// ];
-
 			$days = 
 			[
-				'size'		=> 52,
+				'size'		=> $this->fontsize1,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> -20,
+				'x_offset'	=> $this->font1xoffset,
+				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['days'],
 				'column'	=> 1,
 			];
 			
 			$days_label = 
 			[
-				'size'		=> 12,
+				'size'		=> $this->fontsize2,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> 20,
+				'x_offset'	=> $this->font2xoffset,
+				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'DAYS',
 				'column'	=> 1,
 			];
 
 			$hours = 
 			[
-				'size'		=> 52,
+				'size'		=> $this->fontsize1,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> -20,
+				'x_offset'	=> $this->font1xoffset,
+				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['hours'],
 				'column'	=> 2,
 			];
 
 			$hours_label = 
 			[
-				'size'		=> 12,
+				'size'		=> $this->fontsize2,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> 20,
+				'x_offset'	=> $this->font2xoffset,
+				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'HOURS',
 				'column'	=> 2,
 			];
 
 			$minutes = 
 			[
-				'size'		=> 52,
+				'size'		=> $this->fontsize1,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> -20,
+				'x_offset'	=> $this->font1xoffset,
+				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['minutes'],
 				'column'	=> 3,
 			];
 
 			$minutes_label = 
 			[
-				'size'		=> 12,
+				'size'		=> $this->fontsize2,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> 20,
+				'x_offset'	=> $this->font2xoffset,
+				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'MINUTES',
 				'column'	=> 3,
 			];
 
 			$seconds = 
 			[
-				'size'		=> 52,
+				'size'		=> $this->fontsize1,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> -20,
+				'x_offset'	=> $this->font1xoffset,
+				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['seconds'],
 				'column'	=> 4,
 			];
 
 			$seconds_label = 
 			[
-				'size'		=> 12,
+				'size'		=> $this->fontsize2,
 				'angle'		=> 0,
-				'x_offset'	=> 0,
-				'y_offset'	=> 20,
+				'x_offset'	=> $this->font2xoffset,
+				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'SECONDS',
 				'column'	=> 4,
 			];
@@ -230,9 +217,6 @@ class GIFCounter extends AnimatedGif
 		$columwidth = (imagesx($img)/4);
 		$xpos;
 
-		// print_r((imagesx($img)/2) + (imagesx($img)/4));
-		// die();
-
 		// column placement
 		switch ($text['column']) {
 			case '1':
@@ -260,8 +244,8 @@ class GIFCounter extends AnimatedGif
 			$img,
 			$text['size'] ?? 47,
 			$text['angle'] ?? 0,
-			$xpos + ($text['x_offset'] ?? 0),
-			(imagesy($img) - $textbox[5])/2 + ($text['y_offset'] ?? 0),
+			$xpos + ((int) $text['x_offset'] ?? 0),
+			(imagesy($img) - $textbox[5])/2 + ((int) $text['y_offset'] ?? 0),
 			$this->fontcolor,
 			$this->font_dir . $this->font,
 			$text['content'] ?? ''

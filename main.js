@@ -15,12 +15,18 @@ document.addEventListener('DOMContentLoaded', function ()
 			}
 
 			this.font = 'FrutigerLTStd-Black.ttf';
+			this.fsize1 = 57;
+			this.fsize2 = 12;
+			this.f1xoffset = 0;
+			this.f1yoffset = -20;
+			this.f2xoffset = 0;
+			this.f2yoffset = 20;
 		}
 
 		buildQuery ()
 		{
 			let instance = this;
-			let querystr = '?';
+			let querystr = `?font=${this.font}&fsize1=${this.fsize1}&fsize2=${this.fsize2}&f1xoffset=${this.f1xoffset}&f1yoffset=${this.f1yoffset}&f2xoffset=${this.f2xoffset}&f2yoffset=${this.f2yoffset}`;
 			let fontcolor = '';
 			let bgcolor = '';
 
@@ -29,12 +35,14 @@ document.addEventListener('DOMContentLoaded', function ()
 				(arr.length > index + 1) ? fontcolor += instance.fontcolor[key] + ',' : fontcolor += instance.fontcolor[key];
 			});
 
+			querystr += `&fontcolor=${fontcolor}`;
+
 			Object.keys(instance.bgcolor).forEach(function(key,index,arr)
 			{
 				(arr.length > index + 1) ? bgcolor += instance.bgcolor[key] + ',' : bgcolor += instance.bgcolor[key];
 			});
 
-			querystr += `font=${this.font}&fontcolor=${fontcolor}&bgcolor=${bgcolor}`;
+			querystr += `&bgcolor=${bgcolor}`;
 
 			return querystr;
 		}
@@ -68,6 +76,17 @@ document.addEventListener('DOMContentLoaded', function ()
 		{
 			gifopts.fontcolor[input.name] = input.value;
 			options.querySelector('.font-color input[type="range"][name="' + input.name + '"]').value = input.value;
+			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+		};
+	});
+
+	// Update Font Size
+
+	options.querySelectorAll('.font-size input[type="number"]').forEach(function(input)
+	{
+		input.onchange = function ()
+		{
+			gifopts[input.name] = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 	});

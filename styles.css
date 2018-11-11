@@ -58,8 +58,20 @@ html, body
 	}
 }
 
-/* Color Options
+/* Options
 *********************/
+
+.options
+{
+	display: flex;
+	flex-flow: column;
+}
+
+.options h2
+{
+	border-bottom: 1px solid;
+	padding-bottom: 15px;
+}
 
 .color-range
 {

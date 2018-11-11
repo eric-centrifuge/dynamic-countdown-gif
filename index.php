@@ -1,3 +1,8 @@
+<?php
+$fonts = scandir("./fonts");
+array_shift($fonts);
+array_shift($fonts);
+?>
 <html>
 	<head>
 		<title>Dynamic PHP Counter</title>
@@ -13,17 +18,51 @@
 		</div>
 
 		<div class="options">
+			<h2>Font</h2>
+
 			<div class="fonts">
-				<h2>Font</h2>
+				<h3>Typeface</h3>
 				<select name="font" id="font">
-					<?php foreach (glob("*.ttf") as $font): ?>
+					<?php foreach ($fonts as $font): ?>
 					<option><?php echo $font ?></option>
 					<?php endforeach; ?>
 				</select>	
 			</div>
 
+			<div class="font-size">
+				<h3>Size</h3>
+				<div class="">
+					<label for="fsize1">Timestamp</label>
+					<input type="number" name="fsize1" value="52">
+				</div>
+				<div class="">
+					<label for="fsize2">Labels</label>
+					<input type="number" name="fsize2" value="12">
+				</div>
+			</div>
+
+			<div class="font-size">
+				<h3>Positioning</h3>
+				<div class="">
+					<label for="fsize1">Timestamp X Offset</label>
+					<input type="number" name="f1xoffset" value="0">
+				</div>
+				<div class="">
+					<label for="fsize2">Timestamp Y Offset</label>
+					<input type="number" name="f1yoffset" value="-20">
+				</div>
+				<div class="">
+					<label for="fsize1">Labels X Offset</label>
+					<input type="number" name="f2xoffset" value="0">
+				</div>
+				<div class="">
+					<label for="fsize2">Labels Y Offset</label>
+					<input type="number" name="f2yoffset" value="20">
+				</div>
+			</div>
+
 			<div class="font-color">
-				<h2>Font Color</h2>
+				<h3>Color</h3>
 				<div class="color-range">
 					<label for="red">Red</label>
 					<input type="number" name="red" min="0" max="255" value="0">
@@ -42,9 +81,11 @@
 					<input type="range" name="blue" min="0" max="255" value="0">
 				</div>
 			</div>
+			
+			<h2>Background</h2>
 
 			<div class="bg-color">
-				<h2>Background Color</h2>
+				<h3>Color</h3>
 				<div class="color-range">
 					<label for="red">Red</label>
 					<input type="number" name="red" min="0" max="255" value="255">
