@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function ()
 		{
 			gifopts[coloroption][input.name] = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+			image.parentNode.href = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 
 		input.oninput = function ()
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function ()
 			gifopts[coloroption][input.name] = input.value;
 			options.querySelector('input[type="range"][data-color="'+input.dataset.color+'"][name="' + input.name + '"]').value = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+			image.parentNode.href = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 	});
 
@@ -95,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function ()
 		{
 			gifopts[input.name] = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+			image.parentNode.href = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 	});
 
@@ -106,12 +109,14 @@ document.addEventListener('DOMContentLoaded', function ()
 		{
 			gifopts[evt.target.name] = evt.target.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+			image.parentNode.href = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		}
 	});
 
 	// Initialize
 
 	image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+	image.parentNode.href = location.href + 'countdowngif.php' + gifopts.buildQuery();
 	options.querySelector('select[name="font1"]').value = gifopts.font1;
 	options.querySelector('select[name="font2"]').value = gifopts.font2;
 });

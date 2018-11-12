@@ -11,7 +11,9 @@
 			<h1 style="text-align: center;">Countdown Generator</h1>
 
 			<div class="gifdisplay">
-				<img id="countdowngif" src="" alt="">
+				<a href="" target="_blank">
+					<img id="countdowngif" src="" alt="">
+				</a>
 			</div>
 
 			<div class="options container">
