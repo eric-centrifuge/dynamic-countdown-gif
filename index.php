@@ -1,107 +1,116 @@
-<?php
-$fonts = scandir("./fonts");
-array_shift($fonts);
-array_shift($fonts);
-?>
 <html>
 	<head>
 		<title>Dynamic PHP Counter</title>
-		<script src="main.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" />
 		<link rel="stylesheet" href="styles.css">
+		<script src="main.js"></script>
 	</head>
 	<body class="flex-center">
-		<h1>Countdown Generator</h1>
+		<div id="app">
+			<h1 style="text-align: center;">Countdown Generator</h1>
 
-		<div class="gifdisplay">
-			<img id="countdowngif" src="" alt="">
-		</div>
-
-		<div class="options">
-			<h2>Font</h2>
-
-			<div class="fonts">
-				<h3>Typeface</h3>
-				<select name="font" id="font">
-					<?php foreach ($fonts as $font): ?>
-					<option><?php echo $font ?></option>
-					<?php endforeach; ?>
-				</select>	
+			<div class="gifdisplay">
+				<img id="countdowngif" src="" alt="">
 			</div>
 
-			<div class="font-size">
-				<h3>Size</h3>
-				<div class="">
-					<label for="fsize1">Timestamp</label>
-					<input type="number" name="fsize1" value="52">
+			<div class="options container">
+				<label class="sections" for="typeface">Typeface</label>
+				<input name="controls" type="radio" id="typeface">
+				<div class="fonts row">
+					<div class="col-xs-12 col-sm-6">
+						<label for="font1">Timestamp</label>
+						<select name="font1">
+							<?php foreach (glob("./fonts/*.ttf") as $font): ?>
+							<option><?php echo str_replace("./fonts/", "", $font) ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				
+					<div class="col-xs-12 col-sm-6">
+						<label for="font2">Labels</label>
+						<select name="font2">
+							<?php foreach (glob("./fonts/*.ttf") as $font): ?>
+							<option><?php echo str_replace("./fonts/", "", $font) ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
 				</div>
-				<div class="">
-					<label for="fsize2">Labels</label>
-					<input type="number" name="fsize2" value="12">
-				</div>
-			</div>
-
-			<div class="font-position">
-				<h3>Positioning</h3>
-				<div class="">
-					<label for="fsize1">Timestamp X Offset</label>
-					<input type="number" name="f1xoffset" value="0">
-				</div>
-				<div class="">
-					<label for="fsize2">Timestamp Y Offset</label>
-					<input type="number" name="f1yoffset" value="-20">
-				</div>
-				<div class="">
-					<label for="fsize1">Labels X Offset</label>
-					<input type="number" name="f2xoffset" value="0">
-				</div>
-				<div class="">
-					<label for="fsize2">Labels Y Offset</label>
-					<input type="number" name="f2yoffset" value="20">
-				</div>
-			</div>
-
-			<div class="font-color">
-				<h3>Color</h3>
-				<div class="color-range">
-					<label for="red">Red</label>
-					<input type="number" name="red" min="0" max="255" value="0">
-					<input type="range" name="red" min="0" max="255" value="0">
+				
+				<label class="sections" for="fontsize">Font Size</label>
+				<input name="controls" type="radio" id="fontsize">
+				<div class="font-size row">
+					<div class="col-xs-12 col-sm-6">
+						<label for="f1size">Timestamp</label>
+						<input type="number" name="f1size" value="52">
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<label for="f2size">Labels</label>
+						<input type="number" name="f2size" value="12">
+					</div>
 				</div>
 
-				<div class="color-range">
-					<label for="green">Green</label>
-					<input type="number" name="green" min="0" max="255" value="0">
-					<input type="range" name="green" min="0" max="255" value="0">
+				<label class="sections" for="positioning">Positioning</label>
+				<input name="controls" type="radio" id="positioning">
+				<div class="font-position row">
+					<div class="col-xs-12 col-sm-6">
+						<label for="f1size">Timestamp X Offset</label>
+						<input type="number" name="f1xoffset" value="0">
+						<br>
+						<label for="f2size">Timestamp Y Offset</label>
+						<input type="number" name="f1yoffset" value="-20">
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<label for="f1size">Labels X Offset</label>
+						<input type="number" name="f2xoffset" value="0">
+						<br>
+						<label for="f2size">Labels Y Offset</label>
+						<input type="number" name="f2yoffset" value="20">
+					</div>
 				</div>
 
-				<div class="color-range">
-					<label for="blue">Blue</label>
-					<input type="number" name="blue" min="0" max="255" value="0">
-					<input type="range" name="blue" min="0" max="255" value="0">
-				</div>
-			</div>
-			
-			<h2>Background</h2>
+				<label class="sections" for="fontcolor">Font Color</label>
+				<input name="controls" type="radio" id="fontcolor" checked>
+				<div class="font-color">
+					<div class="col-xs-12 col-sm-4 color-range">
+						<label for="red">Red</label>
+						<input data-color="font" type="number" name="red" min="0" max="255" value="0">
+						<input data-color="font" type="range" name="red" min="0" max="255" value="0">
+					</div>
 
-			<div class="bg-color">
-				<h3>Color</h3>
-				<div class="color-range">
-					<label for="red">Red</label>
-					<input type="number" name="red" min="0" max="255" value="255">
-					<input type="range" name="red" min="0" max="255" value="255">
+					<div class="col-xs-12 col-sm-4 color-range">
+						<label for="green">Green</label>
+						<input data-color="font" type="number" name="green" min="0" max="255" value="0">
+						<input data-color="font" type="range" name="green" min="0" max="255" value="0">
+					</div>
+
+					<div class="col-xs-12 col-sm-4 color-range">
+						<label for="blue">Blue</label>
+						<input data-color="font" type="number" name="blue" min="0" max="255" value="0">
+						<input data-color="font" type="range" name="blue" min="0" max="255" value="0">
+					</div>
 				</div>
 
-				<div class="color-range">
-					<label for="green">Green</label>
-					<input type="number" name="green" min="0" max="255" value="255">
-					<input type="range" name="green" min="0" max="255" value="255">
-				</div>
+				<label class="sections" for="bgcolor">Background Color</label>
+				<input name="controls" type="radio" id="bgcolor">
+				<div class="bg-color">
+					<div class="col-xs-12 col-sm-4 color-range">
+						<label for="red">Red</label>
+						<input data-color="background" type="number" name="red" min="0" max="255" value="255">
+						<input data-color="background" type="range" name="red" min="0" max="255" value="255">
+					</div>
 
-				<div class="color-range">
-					<label for="blue">Blue</label>
-					<input type="number" name="blue" min="0" max="255" value="255">
-					<input type="range" name="blue" min="0" max="255" value="255">
+					<div class="col-xs-12 col-sm-4 color-range">
+						<label for="green">Green</label>
+						<input data-color="background" type="number" name="green" min="0" max="255" value="255">
+						<input data-color="background" type="range" name="green" min="0" max="255" value="255">
+					</div>
+
+					<div class="col-xs-12 col-sm-4 color-range">
+						<label for="blue">Blue</label>
+						<input data-color="background" type="number" name="blue" min="0" max="255" value="255">
+						<input data-color="background" type="range" name="blue" min="0" max="255" value="255">
+					</div>
 				</div>
 			</div>
 		</div>

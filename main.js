@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function ()
 				red : 0,
 				green : 0,
 				blue : 0,
-			};
+			}
 
 			this.bgcolor = {
 				red : 255,
@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', function ()
 				blue : 255,
 			}
 
-			this.font = 'FrutigerLTStd-Black.ttf';
-			this.fsize1 = 57;
-			this.fsize2 = 12;
+			this.font1 = 'FrutigerLTStd-Black.ttf';
+			this.font2 = 'FrutigerLTStd-Black.ttf';
+			this.f1size = 57;
+			this.f2size = 12;
 			this.f1xoffset = 0;
 			this.f1yoffset = -20;
 			this.f2xoffset = 0;
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function ()
 		buildQuery ()
 		{
 			let instance = this;
-			let querystr = `?font=${this.font}&fsize1=${this.fsize1}&fsize2=${this.fsize2}&f1xoffset=${this.f1xoffset}&f1yoffset=${this.f1yoffset}&f2xoffset=${this.f2xoffset}&f2yoffset=${this.f2yoffset}`;
+			let querystr = `?font1=${this.font1}&font2=${this.font2}&f1size=${this.f1size}&f2size=${this.f2size}&f1xoffset=${this.f1xoffset}&f1yoffset=${this.f1yoffset}&f2xoffset=${this.f2xoffset}&f2yoffset=${this.f2yoffset}`;
 			let fontcolor = '';
 			let bgcolor = '';
 
@@ -54,28 +55,34 @@ document.addEventListener('DOMContentLoaded', function ()
 	let image = document.querySelector('#countdowngif');
 	let options = document.querySelector('.options');
 
-	// Update Font Color
+	// Update Colors
 
-	options.querySelectorAll('.font-color input[type="range"]').forEach(function(input)
+	options.querySelectorAll('input[type="range"]').forEach(function (input)
 	{
+		let coloroption;
+		(input.dataset.color === 'font') ? coloroption = 'fontcolor' : coloroption = 'bgcolor';
+
 		input.onchange = function ()
 		{
-			gifopts.fontcolor[input.name] = input.value;
+			gifopts[coloroption][input.name] = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 
 		input.oninput = function ()
 		{
-			options.querySelector('.font-color input[type="number"][name="' + input.name + '"]').value = input.value;
+			options.querySelector('input[type="number"][data-color="'+input.dataset.color+'"][name="' + input.name + '"]').value = input.value;
 		};
 	});
 
-	options.querySelectorAll('.font-color input[type="number"]').forEach(function(input)
+	options.querySelectorAll('input[type="number"]').forEach(function (input)
 	{
+		let coloroption;
+		(input.dataset.color === 'font') ? coloroption = 'fontcolor' : coloroption = 'bgcolor';
+
 		input.onchange = function ()
 		{
-			gifopts.fontcolor[input.name] = input.value;
-			options.querySelector('.font-color input[type="range"][name="' + input.name + '"]').value = input.value;
+			gifopts[coloroption][input.name] = input.value;
+			options.querySelector('input[type="range"][data-color="'+input.dataset.color+'"][name="' + input.name + '"]').value = input.value;
 			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
 		};
 	});
@@ -91,43 +98,20 @@ document.addEventListener('DOMContentLoaded', function ()
 		};
 	});
 
-	// Update Background Color
-
-	options.querySelectorAll('.bg-color input[type="range"]').forEach(function(input)
-	{
-		input.onchange = function ()
-		{
-			gifopts.bgcolor[input.name] = input.value;
-			options.querySelector('.bg-color input[type="range"][name="' + input.name + '"]').value = input.value;
-			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
-		};
-
-		input.oninput = function ()
-		{
-			options.querySelector('.bg-color input[type="number"][name="' + input.name + '"]').value = input.value;
-		};
-	});
-
-	options.querySelectorAll('.bg-color input[type="number"]').forEach(function(input)
-	{
-		input.onchange = function ()
-		{
-			gifopts.bgcolor[input.name] = input.value;
-			options.querySelector('.bg-color input[type="range"][name="' + input.name + '"]').value = input.value;
-			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
-		};
-	});
-
 	// Update font
 
-	options.querySelector('#font').onchange = function (evt)
+	options.querySelectorAll('.fonts select').forEach(function (input)
 	{
-		gifopts.font = evt.target.value;
-		image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
-	}
+		input.onchange = function (evt)
+		{
+			gifopts[evt.target.name] = evt.target.value;
+			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+		}
+	});
 
 	// Initialize
 
 	image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
-	options.querySelector('#font').value = gifopts.font;
+	options.querySelector('select[name="font1"]').value = gifopts.font1;
+	options.querySelector('select[name="font2"]').value = gifopts.font2;
 });

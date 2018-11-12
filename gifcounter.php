@@ -9,9 +9,10 @@ class GIFCounter extends AnimatedGif
 		$this->frames = [];
 		$this->delays = [];
 		$this->loops = 0;
-		$this->font = $_GET['font'] ?? 'Verdana.ttf';
-		$this->fontsize1 = $_GET['fsize1'] ?? 52;
-		$this->fontsize2 = $_GET['fsize2'] ?? 12;
+		$this->font1 = $_GET['font1'] ?? 'Verdana.ttf';
+		$this->font2 = $_GET['font2'] ?? 'Verdana.ttf';
+		$this->fontsize1 = $_GET['f1size'] ?? 52;
+		$this->fontsize2 = $_GET['f2size'] ?? 12;
 		$this->font1xoffset = $_GET['f1xoffset'] ?? 0;
 		$this->font1yoffset = $_GET['f1yoffset'] ?? -20;
 		$this->font2xoffset = $_GET['f2xoffset'] ?? 0;
@@ -39,6 +40,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font1xoffset,
 				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['days'],
+				'font'		=> $this->font_dir . $this->font1,
 				'column'	=> 1,
 			];
 			
@@ -49,6 +51,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font2xoffset,
 				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'DAYS',
+				'font'		=> $this->font_dir . $this->font2,
 				'column'	=> 1,
 			];
 
@@ -59,6 +62,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font1xoffset,
 				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['hours'],
+				'font'		=> $this->font_dir . $this->font1,
 				'column'	=> 2,
 			];
 
@@ -69,6 +73,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font2xoffset,
 				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'HOURS',
+				'font'		=> $this->font_dir . $this->font2,
 				'column'	=> 2,
 			];
 
@@ -79,6 +84,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font1xoffset,
 				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['minutes'],
+				'font'		=> $this->font_dir . $this->font1,
 				'column'	=> 3,
 			];
 
@@ -89,6 +95,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font2xoffset,
 				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'MINUTES',
+				'font'		=> $this->font_dir . $this->font2,
 				'column'	=> 3,
 			];
 
@@ -99,6 +106,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font1xoffset,
 				'y_offset'	=> $this->font1yoffset,
 				'content'	=> $timestamp['seconds'],
+				'font'		=> $this->font_dir . $this->font1,
 				'column'	=> 4,
 			];
 
@@ -109,6 +117,7 @@ class GIFCounter extends AnimatedGif
 				'x_offset'	=> $this->font2xoffset,
 				'y_offset'	=> $this->font2yoffset,
 				'content'	=> 'SECONDS',
+				'font'		=> $this->font_dir . $this->font2,
 				'column'	=> 4,
 			];
 
@@ -208,9 +217,9 @@ class GIFCounter extends AnimatedGif
 	{
 		// grab image/text dimensions
 		$textbox = imagettfbbox(
-			$text['size'] ?? 47,
-			$text['angle'] ?? 45,
-			$this->font_dir . $this->font,
+			$text['size'],
+			$text['angle'],
+			$text['font'],
 			$text['content'] ?? ''
 		);
 
@@ -242,12 +251,12 @@ class GIFCounter extends AnimatedGif
 
 		imagettftext(
 			$img,
-			$text['size'] ?? 47,
-			$text['angle'] ?? 0,
+			$text['size'],
+			$text['angle'],
 			$xpos + ((int) $text['x_offset'] ?? 0),
 			(imagesy($img) - $textbox[5])/2 + ((int) $text['y_offset'] ?? 0),
 			$this->fontcolor,
-			$this->font_dir . $this->font,
+			$text['font'],
 			$text['content'] ?? ''
 		);
 	}

@@ -18,7 +18,6 @@ html, body
 
 .gifdisplay
 {
-	min-height: 200px;
 	position: relative;
 }
 
@@ -67,16 +66,27 @@ html, body
 	flex-flow: column;
 }
 
-.options h2
+.options label
 {
-	border-bottom: 1px solid;
-	padding-bottom: 15px;
+	display: block;
+}
+
+.options input,
+.options select
+{
+	outline: none;
+	border: none;
+	margin: 15px 0;
+	padding: 10px 0;
+	font-size: 1.2rem;
+	max-width: 100%;
 }
 
 .color-range
 {
 	display: flex;
 	flex-flow: row wrap;
+	align-items: center;
 }
 
 .color-range > *
@@ -87,9 +97,7 @@ html, body
 .color-range input[type="number"]
 {
 	background: none;
-	border: none;
 	text-align: right;
-	padding: 10px;
 }
 
 .color-range input[type="range"]
@@ -118,4 +126,35 @@ html, body
 .color-range label[for="blue"]
 {
 	color: rgba(0,0,200);
+}
+
+/* Show/Hide Sections
+*********************/
+
+input[type="radio"][name="controls"]
+{
+	display: none;
+}
+
+label.sections
+{
+	border-bottom: 1px solid;
+	padding: 15px 0;
+	margin-bottom: 15px;
+	font-weight: 700;
+}
+
+label.sections:hover
+{
+	cursor: pointer;
+}
+
+input[type="radio"][name="controls"] + div
+{
+	display: none;
+}
+
+input[type="radio"][name="controls"]:checked + div
+{
+	display: flex;
 }
