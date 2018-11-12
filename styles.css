@@ -69,6 +69,7 @@ html, body
 .options label
 {
 	display: block;
+	font-size: 1.3rem;
 }
 
 .options input,
@@ -142,6 +143,7 @@ label.sections
 	padding: 15px 0;
 	margin-bottom: 15px;
 	font-weight: 700;
+	font-size: 1.5rem;
 }
 
 label.sections:hover
@@ -157,4 +159,5 @@ input[type="radio"][name="controls"] + div
 input[type="radio"][name="controls"]:checked + div
 {
 	display: flex;
+	flex-wrap: wrap;
 }
