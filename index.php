@@ -23,18 +23,32 @@
 					<div class="col-xs-12 col-sm-6">
 						<label for="font1">Timestamp</label>
 						<select name="font1">
-							<?php foreach (glob("./fonts/*.ttf") as $font): ?>
-							<option><?php echo str_replace("./fonts/", "", $font) ?></option>
-							<?php endforeach; ?>
+							<optgroup label="TTF Fonts">
+								<?php foreach (glob("./fonts/*.ttf") as $font): ?>
+								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
+								<?php endforeach; ?>
+							</optgroup>
+							<optgroup label="OTF Fonts">
+								<?php foreach (glob("./fonts/*.otf") as $font): ?>
+								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
+								<?php endforeach; ?>
+							</optgroup>
 						</select>
 					</div>
 				
 					<div class="col-xs-12 col-sm-6">
 						<label for="font2">Labels</label>
 						<select name="font2">
-							<?php foreach (glob("./fonts/*.ttf") as $font): ?>
-							<option><?php echo str_replace("./fonts/", "", $font) ?></option>
-							<?php endforeach; ?>
+							<optgroup label="TTF Fonts">
+								<?php foreach (glob("./fonts/*.ttf") as $font): ?>
+								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
+								<?php endforeach; ?>
+							</optgroup>
+							<optgroup label="OTF Fonts">
+								<?php foreach (glob("./fonts/*.otf") as $font): ?>
+								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
+								<?php endforeach; ?>
+							</optgroup>
 						</select>
 					</div>
 				</div>
