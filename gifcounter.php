@@ -9,27 +9,27 @@ class GIFCounter extends AnimatedGif
 		$this->frames = [];
 		$this->delays = [];
 		$this->loops = 0;
-		$this->font1 = $_GET['font1'] ?? 'Verdana.ttf';
-		$this->font2 = $_GET['font2'] ?? 'Verdana.ttf';
-		$this->fontsize1 = $_GET['f1size'] ?? 52;
-		$this->fontsize2 = $_GET['f2size'] ?? 12;
-		$this->font1xoffset = $_GET['f1xoffset'] ?? 0;
-		$this->font1yoffset = $_GET['f1yoffset'] ?? -20;
-		$this->font2xoffset = $_GET['f2xoffset'] ?? 0;
-		$this->font2yoffset = $_GET['f2yoffset'] ?? 20;
+		$this->font1 = $_GET['font1'];
+		$this->font2 = $_GET['font2'];
+		$this->fontsize1 = $_GET['f1size'];
+		$this->fontsize2 = $_GET['f2size'];
+		$this->font1xoffset = $_GET['f1xoffset'];
+		$this->font1yoffset = $_GET['f1yoffset'];
+		$this->font2xoffset = $_GET['f2xoffset'];
+		$this->font2yoffset = $_GET['f2yoffset'];
 		$this->font_dir = './fonts/';
 		$this->fontcolor = '0,0,0';
 		$this->bgcolor = '255,255,255';
 		$this->now = date_create('now');
-		$this->end_date = $_GET['enddate'] ?? 'tomorrow';
+		$this->end_date = $_GET['enddate'];
 	}
 
 	public function begin()
 	{
 		date_default_timezone_set('America/New_York');
 
-		$this->bgcolor = $this->setColor($_GET['bgcolor'] ?? '255,255,255');
-		$this->fontcolor = $this->setColor($_GET['fontcolor'] ?? '0,0,0');
+		$this->bgcolor = $this->setColor($_GET['bgcolor'];
+		$this->fontcolor = $this->setColor($_GET['fontcolor'];
 		$timestamps = $this->createTimeStamps();
 
 		foreach ($timestamps as $timestamp):
@@ -220,7 +220,7 @@ class GIFCounter extends AnimatedGif
 			$text['size'],
 			$text['angle'],
 			$text['font'],
-			$text['content'] ?? ''
+			$text['content']'
 		);
 
 		$columwidth = (imagesx($img)/4);
@@ -253,11 +253,11 @@ class GIFCounter extends AnimatedGif
 			$img,
 			$text['size'],
 			$text['angle'],
-			$xpos + ((int) $text['x_offset'] ?? 0),
-			(imagesy($img) - $textbox[5])/2 + ((int) $text['y_offset'] ?? 0),
+			$xpos + ((int) $text['x_offset'],
+			(imagesy($img) - $textbox[5])/2 + ((int) $text['y_offset'],
 			$this->fontcolor,
 			$text['font'],
-			$text['content'] ?? ''
+			$text['content']'
 		);
 	}
 
