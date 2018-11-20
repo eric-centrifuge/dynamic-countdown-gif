@@ -17,6 +17,15 @@
 			</div>
 
 			<div class="options container">
+				<label class="sections" for="enddate">End Date</label>
+				<input name="controls" type="radio" id="enddate">
+				<div class="end-date row">
+					<div class="col-xs-12 col-sm-6">
+						<label for="enddate">End Date</label>
+						<input type="date" name="enddate">
+					</div>
+				</div>
+
 				<label class="sections" for="typeface">Typeface</label>
 				<input name="controls" type="radio" id="typeface">
 				<div class="fonts row">

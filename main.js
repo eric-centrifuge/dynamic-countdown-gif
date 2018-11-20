@@ -22,12 +22,13 @@ document.addEventListener('DOMContentLoaded', function ()
 			this.f1yoffset = -20;
 			this.f2xoffset = 0;
 			this.f2yoffset = 20;
+			this.enddate = '';
 		}
 
 		buildQuery ()
 		{
 			let instance = this;
-			let querystr = `?font1=${this.font1}&font2=${this.font2}&f1size=${this.f1size}&f2size=${this.f2size}&f1xoffset=${this.f1xoffset}&f1yoffset=${this.f1yoffset}&f2xoffset=${this.f2xoffset}&f2yoffset=${this.f2yoffset}`;
+			let querystr = `?enddate=${this.enddate}&font1=${this.font1}&font2=${this.font2}&f1size=${this.f1size}&f2size=${this.f2size}&f1xoffset=${this.f1xoffset}&f1yoffset=${this.f1yoffset}&f2xoffset=${this.f2xoffset}&f2yoffset=${this.f2yoffset}`;
 			let fontcolor = '';
 			let bgcolor = '';
 
@@ -89,9 +90,9 @@ document.addEventListener('DOMContentLoaded', function ()
 		};
 	});
 
-	// Update Font Size/Position
+	// Update Font Size/Position/Date
 
-	options.querySelectorAll('.font-size input[type="number"],.font-position input[type="number"]').forEach(function(input)
+	options.querySelectorAll('.font-size input[type="number"],.font-position input[type="number"],.end-date input[type="date"]').forEach(function(input)
 	{
 		input.onchange = function ()
 		{
