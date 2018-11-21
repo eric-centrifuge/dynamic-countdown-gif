@@ -164,6 +164,8 @@ class GIFCounter extends AnimatedGif
 	{
 		$color = array();
 		$img = imagecreatetruecolor(1,1);
+		print_r('running');
+		die();
 
 		// create array with rgb values
 		if (count(explode(',', $rgb)) > 0)
