@@ -160,12 +160,12 @@ class GIFCounter extends AnimatedGif
 		$gif->display();
 	}
 
-	public function setColor(string $rgb)
+	public function setColor($rgb)
 	{
 		$color = [];
 		$img = imagecreatetruecolor(1,1);
-		print_r('running');
-		die();
+		// print_r('running');
+		// die();
 
 		// create array with rgb values
 		if (count(explode(',', $rgb)) > 0)
@@ -173,7 +173,7 @@ class GIFCounter extends AnimatedGif
 			$arr = explode(',', $rgb);
 			for ($i=0; $i < 3; $i++)
 			{
-				$value = (isset($arr[$i])) ? (int) $arr[$i] : 0;
+				$value = (isset($arr[$i])) ? $arr[$i] : 0;
 				array_push($color,$value);
 			}
 		}
@@ -283,8 +283,8 @@ class GIFCounter extends AnimatedGif
 			$img,
 			$text['size'],
 			$text['angle'],
-			$xpos + ((int) isset($text['x_offset']) ? $text['x_offset'] : 0),
-			(imagesy($img) - $textbox[5])/2 + ((int) isset($text['y_offset']) ? $text['y_offset'] : 0),
+			$xpos + (isset($text['x_offset']) ? $text['x_offset'] : 0),
+			(imagesy($img) - $textbox[5])/2 + (isset($text['y_offset']) ? $text['y_offset'] : 0),
 			$this->fontcolor,
 			$text['font'],
 			isset($text['content']) ? $text['content'] : ''
