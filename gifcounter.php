@@ -32,7 +32,8 @@ class GIFCounter extends AnimatedGif
 		$this->fontcolor = $this->setColor(isset($_GET['fontcolor']) ? $_GET['fontcolor'] : '0,0,0');
 		$timestamps = $this->createTimeStamps();
 
-		foreach ($timestamps as $timestamp):
+		foreach ($timestamps as $timestamp)
+		{
 			$days = 
 			[
 				'size'		=> $this->fontsize1,
@@ -135,7 +136,7 @@ class GIFCounter extends AnimatedGif
 
 			// wipe image from memory
 			imagedestroy($frame);
-		endforeach;
+		}
 
 		$gif = new AnimatedGif($this->frames, $this->delays, $this->loops);
 		$gif->display();
@@ -147,13 +148,15 @@ class GIFCounter extends AnimatedGif
 		$img = imagecreatetruecolor(1,1);
 
 		// create array with rgb values
-		if (count(explode(',', $rgb)) > 0):
+		if (count(explode(',', $rgb)) > 0)
+		{
 			$arr = explode(',', $rgb);
-			for ($i=0; $i < 3; $i++):
+			for ($i=0; $i < 3; $i++)
+			{
 				$value = (isset($arr[$i])) ? (int) $arr[$i] : 0;
 				$color[] = $value;
-			endfor;
-		endif;
+			}
+		}
 
 		$color = imagecolorallocate($img, $color[0], $color[1], $color[2]);
 		imagedestroy($img);
@@ -165,22 +168,27 @@ class GIFCounter extends AnimatedGif
 	{
 		$timestamps = [];
 
-		if (date_create($this->end_date)):
+		if (date_create($this->end_date))
+		{
 			$this->end_date = date_create($this->end_date);
-		else:
+		}
+		else
+		{
 			$this->end_date = date_create('tomorrow');
-		endif;
+		}
 
 		// create timestamp frames
-		for ($i = 0; $i <= 60; $i++):
+		for ($i = 0; $i <= 60; $i++)
+		{
 			// check if date has passed
 			if (
 				$this->end_date->format('Y') < $this->now->format('Y') &&
 				$this->end_date->format('m') < $this->now->format('m') &&
 				$this->end_date->format('d') < $this->now->format('d')
-			):
+			)
+			{
 				// logic here
-			endif;
+			}
 
 			$date_diff = $this->now->diff($this->end_date);
 
@@ -192,15 +200,16 @@ class GIFCounter extends AnimatedGif
 			];
 			
 			// add leading zero if days left are less than 10
-			if (strlen($date_diff->format('%a')) < 2):
+			if (strlen($date_diff->format('%a')) < 2)
+			{
 				$timestamp['days'] = $date_diff->format('0%a');
-			endif;
+			}
 
 			$timestamps[] = $timestamp;
 
 			// add one second to current date
 			$this->now->modify('+1 second');
-		endfor;
+		}
 
 		return $timestamps;
 	}
@@ -227,7 +236,8 @@ class GIFCounter extends AnimatedGif
 		$xpos;
 
 		// column placement
-		switch ($text['column']) {
+		switch ($text['column'])
+		{
 			case '1':
 				$xpos = 0 + ($columwidth - $textbox[2])/2;
 				break;
