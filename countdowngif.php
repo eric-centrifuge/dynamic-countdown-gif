@@ -9,4 +9,4 @@ header('Pragma: no-cache');
 include 'gifcounter.php';
 
 $countdown = new GIFCounter();
-$countdown->begin();
+// $countdown->begin();
