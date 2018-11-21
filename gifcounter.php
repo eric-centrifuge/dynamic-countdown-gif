@@ -4,23 +4,6 @@ include 'GIFEncoder.php';
 
 class GIFCounter extends AnimatedGif
 {
-	public $frames;
-	public $delays;
-	public $loops;
-	public $font1;
-	public $font2;
-	public $fontsize1;
-	public $fontsize2;
-	public $font1xoffset;
-	public $font1yoffset;
-	public $font2xoffset;
-	public $font2yoffset;
-	public $font_dir;
-	public $fontcolor;
-	public $bgcolor;
-	public $now;
-	public $end_date;
-
 	function __construct()
 	{
 		$this->frames = [];
@@ -44,8 +27,6 @@ class GIFCounter extends AnimatedGif
 	public function begin()
 	{
 		date_default_timezone_set('America/New_York');
-		print_r($this->setColor('255,255,255'));
-		die();
 		$this->bgcolor = $this->setColor(isset($_GET['bgcolor']) ? $_GET['bgcolor'] : '255,255,255');
 		$this->fontcolor = $this->setColor(isset($_GET['fontcolor']) ? $_GET['fontcolor'] : '0,0,0');
 		$timestamps = $this->createTimeStamps();
@@ -160,12 +141,10 @@ class GIFCounter extends AnimatedGif
 		$gif->display();
 	}
 
-	public function setColor($rgb)
+	private function setColor($rgb)
 	{
 		$color = [];
 		$img = imagecreatetruecolor(1,1);
-		// print_r('running');
-		// die();
 
 		// create array with rgb values
 		if (count(explode(',', $rgb)) > 0)
@@ -174,7 +153,7 @@ class GIFCounter extends AnimatedGif
 			for ($i=0; $i < 3; $i++)
 			{
 				$value = (isset($arr[$i])) ? $arr[$i] : 0;
-				array_push($color,$value);
+				$color[] = $value;
 			}
 		}
 
@@ -184,7 +163,7 @@ class GIFCounter extends AnimatedGif
 		return $color;
 	}
 
-	public function createTimeStamps()
+	private function createTimeStamps()
 	{
 		$timestamps = [];
 
@@ -234,7 +213,7 @@ class GIFCounter extends AnimatedGif
 		return $timestamps;
 	}
 
-	public function createFrame()
+	private function createFrame()
 	{
 		$base_img = imagecreatetruecolor(600,200);
 		imagefill($base_img, 0, 0, $this->bgcolor);
@@ -242,7 +221,7 @@ class GIFCounter extends AnimatedGif
 		return $base_img;
 	}
 
-	public function addText($img, array $text)
+	private function addText($img, array $text)
 	{
 		// grab image/text dimensions
 		$textbox = imagettfbbox(
@@ -291,7 +270,7 @@ class GIFCounter extends AnimatedGif
 		);
 	}
 
-	public function addFrame($frame)
+	private function addFrame($frame)
 	{
 		// create image in output buffer
 		ob_start();
