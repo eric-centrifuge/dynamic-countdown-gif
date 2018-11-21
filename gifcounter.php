@@ -21,7 +21,7 @@ class GIFCounter extends AnimatedGif
 	public $now;
 	public $end_date;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->frames = [];
 		$this->delays = [];
@@ -160,7 +160,6 @@ class GIFCounter extends AnimatedGif
 
 	private function setColor(string $rgb)
 	{
-		die();
 		$color = [];
 		$img = imagecreatetruecolor(1,1);
 
