@@ -27,8 +27,6 @@ class GIFCounter extends AnimatedGif
 	public function begin()
 	{
 		date_default_timezone_set('America/New_York');
-		// print_r();
-		// die();
 		$this->bgcolor = $this->setColor(isset($_GET['bgcolor']) ? $_GET['bgcolor'] : '255,255,255');
 		$this->fontcolor = $this->setColor(isset($_GET['fontcolor']) ? $_GET['fontcolor'] : '0,0,0');
 		$timestamps = $this->createTimeStamps();
@@ -143,8 +141,9 @@ class GIFCounter extends AnimatedGif
 		$gif->display();
 	}
 
-	public function setColor(string $rgb)
+	private function setColor(string $rgb)
 	{
+		die();
 		$color = [];
 		$img = imagecreatetruecolor(1,1);
 
@@ -165,7 +164,7 @@ class GIFCounter extends AnimatedGif
 		return $color;
 	}
 
-	public function createTimeStamps()
+	private function createTimeStamps()
 	{
 		$timestamps = [];
 
@@ -215,7 +214,7 @@ class GIFCounter extends AnimatedGif
 		return $timestamps;
 	}
 
-	public function createFrame()
+	private function createFrame()
 	{
 		$base_img = imagecreatetruecolor(600,200);
 		imagefill($base_img, 0, 0, $this->bgcolor);
@@ -223,7 +222,7 @@ class GIFCounter extends AnimatedGif
 		return $base_img;
 	}
 
-	public function addText($img, array $text)
+	private function addText($img, array $text)
 	{
 		// grab image/text dimensions
 		$textbox = imagettfbbox(
@@ -272,7 +271,7 @@ class GIFCounter extends AnimatedGif
 		);
 	}
 
-	public function addFrame($frame)
+	private function addFrame($frame)
 	{
 		// create image in output buffer
 		ob_start();
