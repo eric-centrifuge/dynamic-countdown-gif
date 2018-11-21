@@ -27,10 +27,11 @@ class GIFCounter extends AnimatedGif
 	public function begin()
 	{
 		date_default_timezone_set('America/New_York');
-		die();
 		$this->bgcolor = $this->setColor(isset($_GET['bgcolor']) ? $_GET['bgcolor'] : '255,255,255');
 		$this->fontcolor = $this->setColor(isset($_GET['fontcolor']) ? $_GET['fontcolor'] : '0,0,0');
 		$timestamps = $this->createTimeStamps();
+
+		die();
 
 		foreach ($timestamps as $timestamp)
 		{
