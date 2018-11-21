@@ -162,7 +162,7 @@ class GIFCounter extends AnimatedGif
 
 	public function setColor(string $rgb)
 	{
-		$color = [];
+		$color = new Array();
 		$img = imagecreatetruecolor(1,1);
 
 		// create array with rgb values
