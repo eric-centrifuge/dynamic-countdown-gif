@@ -4,6 +4,23 @@ include 'GIFEncoder.php';
 
 class GIFCounter extends AnimatedGif
 {
+	public $frames;
+	public $delays;
+	public $loops;
+	public $font1;
+	public $font2;
+	public $fontsize1;
+	public $fontsize2;
+	public $font1xoffset;
+	public $font1yoffset;
+	public $font2xoffset;
+	public $font2yoffset;
+	public $font_dir;
+	public $fontcolor;
+	public $bgcolor;
+	public $now;
+	public $end_date;
+
 	function __construct()
 	{
 		$this->frames = [];
