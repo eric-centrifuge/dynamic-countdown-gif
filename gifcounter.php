@@ -162,7 +162,7 @@ class GIFCounter extends AnimatedGif
 
 	public function setColor($rgb)
 	{
-		$color = array();
+		$color = [];
 		$img = imagecreatetruecolor(1,1);
 		print_r('running');
 		die();
