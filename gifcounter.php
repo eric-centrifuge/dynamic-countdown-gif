@@ -179,7 +179,7 @@ class GIFCounter extends AnimatedGif
 		// create timestamp frames
 		for ($i = 0; $i <= 60; $i++)
 		{
-			// check if date has passed
+			// check if end date has passed
 			if (
 				$this->end_date->format('Y') < $this->now->format('Y') &&
 				$this->end_date->format('m') < $this->now->format('m') &&
@@ -187,6 +187,13 @@ class GIFCounter extends AnimatedGif
 			)
 			{
 				// logic here
+				$timestamp = [
+					'days'		=> '0',
+					'hours' 	=> '0',
+					'minutes'	=> '0',
+					'seconds'	=> '0',
+				];
+
 			}
 
 			$date_diff = $this->now->diff($this->end_date);
