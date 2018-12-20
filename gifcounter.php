@@ -179,35 +179,36 @@ class GIFCounter extends AnimatedGif
 		// create timestamp frames
 		for ($i = 0; $i <= 60; $i++)
 		{
-			// check if date has passed
-			if (
-				$this->end_date->format('Y') < $this->now->format('Y') &&
-				$this->end_date->format('m') < $this->now->format('m') &&
-				$this->end_date->format('d') < $this->now->format('d')
-			)
+			// check if end date has passed
+			$date_now = new DateTime();
+ 			$date2    = new DateTime($this->end_date);
+			if ($date_now > $date2)
 			{
 				// logic here
+				$date_diff = 0;
 			}
+			else {
 
-			$date_diff = $this->now->diff($this->end_date);
+				$date_diff = $this->now->diff($this->end_date);
+			}
 
 			$timestamp = [
-				'days'		=> $date_diff->format('%a'),
-				'hours' 	=> $date_diff->format('%H'),
-				'minutes'	=> $date_diff->format('%I'),
-				'seconds'	=> $date_diff->format('%S'),
-			];
-			
-			// add leading zero if days left are less than 10
-			if (strlen($date_diff->format('%a')) < 2)
-			{
-				$timestamp['days'] = $date_diff->format('0%a');
-			}
+					'days'		=> $date_diff->format('%a'),
+					'hours' 	=> $date_diff->format('%H'),
+					'minutes'	=> $date_diff->format('%I'),
+					'seconds'	=> $date_diff->format('%S'),
+				];
+				
+				// add leading zero if days left are less than 10
+				if (strlen($date_diff->format('%a')) < 2)
+				{
+					$timestamp['days'] = $date_diff->format('0%a');
+				}
 
-			$timestamps[] = $timestamp;
+				$timestamps[] = $timestamp;
 
-			// add one second to current date
-			$this->now->modify('+1 second');
+				// add one second to current date
+				$this->now->modify('+1 second');
 		}
 
 		return $timestamps;
