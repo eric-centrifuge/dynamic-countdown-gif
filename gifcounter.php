@@ -186,10 +186,10 @@ class GIFCounter extends AnimatedGif
 			{
 				// logic here
 				$timestamp = [
-					'days'		=> '0',
-					'hours' 	=> '0',
-					'minutes'	=> '0',
-					'seconds'	=> '0',
+					'days'		=> '00',
+					'hours' 	=> '00',
+					'minutes'	=> '00',
+					'seconds'	=> '00',
 				];
 			}
 			else
