@@ -24,16 +24,16 @@ class GIFCounter extends AnimatedGif
 		$this->end_date = isset($_GET['enddate']) ? $_GET['enddate'] : 'tomorrow';
 		$this->text = isset($_GET['text']) ? $_GET['text'] : "YOUR NAME";
 		$this->image = isset($_GET['image']) ? $_GET['image'] : null;
-		$this->countdown = isset($_GET['countdown']) ? true : false;
+		$this->singleframe = isset($_GET['singleframe']) ? true : false;
 	}
 
 	public function begin()
 	{
-		if ($this->countdown) {
-			$this->createCountDown();
+		if ($this->singleframe) {
+			$this->createSingleImage();
 		}
 		else {
-			$this->createSingleImage();
+			$this->createCountDown();
 		}
 	}
 
