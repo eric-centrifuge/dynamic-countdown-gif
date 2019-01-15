@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function ()
 				enddate : '',
 				text : '',
 				countdown : '',
-				bgimage : '',
+				image : '',
 			}
 		}
 
