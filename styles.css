@@ -1,0 +1,163 @@
+html, body
+{
+	min-height: 100vh;
+	font-family: sans-serif;
+}
+
+.flex-center
+{
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+}
+
+/* Display
+*********************/
+
+.gifdisplay
+{
+	position: relative;
+}
+
+.gifdisplay img
+{
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+.gifdisplay:before
+{
+	content: '';
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 20px;
+	height: 20px;
+	background: rgba(0,0,0,1);
+	border-radius: 50%;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	animation: loading .7s linear infinite;
+}
+
+@keyframes loading
+{
+	0% {
+		transform: rotateY(0deg);
+	}
+
+	to {
+		transform: rotateY(360deg);
+	}
+}
+
+/* Options
+*********************/
+
+.options
+{
+	display: flex;
+	flex-flow: column;
+}
+
+.options label
+{
+	display: block;
+	font-size: 1.3rem;
+}
+
+.options input,
+.options select
+{
+	outline: none;
+	border: none;
+	margin: 15px 0;
+	padding: 10px 0;
+	font-size: 1.2rem;
+	max-width: 100%;
+}
+
+.color-range
+{
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+}
+
+.color-range > *
+{
+	flex: 1 1 auto;
+}
+
+.color-range input[type="number"]
+{
+	background: none;
+	text-align: right;
+}
+
+.color-range input[type="range"]
+{
+	width: 100%;
+	margin: 15px 0;
+	display: block;
+}
+
+.color-range label
+{
+	flex: 0 1 50%;
+	font-weight: 700;
+}
+
+.color-range label[for="red"]
+{
+	color: rgba(200,0,0);
+}
+
+.color-range label[for="green"]
+{
+	color: rgba(0,200,0);
+}
+
+.color-range label[for="blue"]
+{
+	color: rgba(0,0,200);
+}
+
+/* Show/Hide Sections
+*********************/
+
+input[type="radio"][name="controls"]
+{
+	display: none;
+}
+
+label.sections
+{
+	border-bottom: 1px solid;
+	padding: 15px 0;
+	margin-bottom: 15px;
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+label.sections:hover
+{
+	cursor: pointer;
+}
+
+input[type="radio"][name="controls"] + div
+{
+	display: none;
+}
+
+input[type="radio"][name="controls"]:checked + div
+{
+	display: flex;
+	flex-wrap: wrap;
+}
