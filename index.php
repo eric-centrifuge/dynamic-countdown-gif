@@ -8,7 +8,7 @@
 	</head>
 	<body class="flex-center">
 		<div id="app">
-			<h1 style="text-align: center;">Countdown Generator</h1>
+			<h1 style="text-align: center;">PHP Image Generator</h1>
 
 			<div class="gifdisplay">
 				<a href="" target="_blank">
@@ -17,6 +17,13 @@
 			</div>
 
 			<div class="options container">
+                <div class="image-type">
+                    <input type="radio" id="countdown" name="imagetype" value="countdown" checked>
+                    <label for="countdown">Count Down</label>
+                    <input type="radio" id="singleframe" name="imagetype" value="singleframe">
+                    <label for="singleframe">Single Image</label>
+                </div>
+
 				<label class="sections" for="text">Text</label>
 				<input name="controls" type="radio" id="text">
 				<div class="text">
@@ -24,8 +31,8 @@
 				</div>
 
 				<label class="sections" for="enddate">End Date</label>
-				<input name="controls" type="radio" id="enddate">
-				<div class="end-date row">
+				<input name="controls" type="radio" id="enddate" checked>
+				<div class="enddate row">
 					<div class="col-xs-12 col-sm-6">
 						<label for="enddate">End Date</label>
 						<input type="date" name="enddate">
@@ -36,47 +43,78 @@
 				<input name="controls" type="radio" id="typeface">
 				<div class="fonts row">
 					<div class="col-xs-12 col-sm-6">
-						<label for="font1">Timestamp</label>
+                        <?php
+                            $ttf_fonts = glob("./fonts/*.ttf");
+                            $otf_fonts = glob("./fonts/*.otf");
+                        ?>
+						<label for="font1">Font #1</label>
 						<select name="font1">
-							<optgroup label="TTF Fonts">
-								<?php foreach (glob("./fonts/*.ttf") as $font): ?>
-								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
-								<?php endforeach; ?>
-							</optgroup>
-							<optgroup label="OTF Fonts">
-								<?php foreach (glob("./fonts/*.otf") as $font): ?>
-								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
-								<?php endforeach; ?>
-							</optgroup>
+                            <?php
+                            foreach ($ttf_fonts as $font):
+                                if ($ttf_fonts[0] === $font):
+                                    $selected = 'selected';
+                                else:
+                                    $selected = "";
+                                endif;
+
+                                $font = str_replace("./fonts/", "", $font);
+                            ?>
+                                <option <?php echo $selected; ?> value="<?php echo $font; ?>"><?php echo $font ?></option>
+                            <?php endforeach; ?>
+
+                            <?php
+                            foreach ($otf_fonts as $font):
+                                if ($otf_fonts[0] === $font):
+                                    $selected = "selected";
+                                else:
+                                    $selected = "";
+                                endif;
+                                $font = str_replace("./fonts/", "", $font);
+                            ?>
+                                <option <?php echo $selected; ?> value="<?php echo $font; ?>"><?php echo $font ?></option>
+                            <?php endforeach; ?>
 						</select>
 					</div>
-				
+
 					<div class="col-xs-12 col-sm-6">
-						<label for="font2">Labels</label>
+						<label for="font2">Font #2</label>
 						<select name="font2">
-							<optgroup label="TTF Fonts">
-								<?php foreach (glob("./fonts/*.ttf") as $font): ?>
-								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
-								<?php endforeach; ?>
-							</optgroup>
-							<optgroup label="OTF Fonts">
-								<?php foreach (glob("./fonts/*.otf") as $font): ?>
-								<option><?php echo str_replace("./fonts/", "", $font) ?></option>
-								<?php endforeach; ?>
-							</optgroup>
+                            <?php
+                            foreach ($ttf_fonts as $font):
+                                if ($ttf_fonts[0] === $font):
+                                    $selected = "selected";
+                                else:
+                                    $selected = "";
+                                endif;
+                                $font = str_replace("./fonts/", "", $font);
+                            ?>
+                                <option <?php echo $selected; ?> value="<?php echo $font; ?>"><?php echo $font ?></option>
+                            <?php endforeach; ?>
+
+                            <?php
+                            foreach ($otf_fonts as $font):
+                                if ($otf_fonts[0] === $font):
+                                    $selected = "selected";
+                                else:
+                                    $selected = "";
+                                endif;
+                                $font = str_replace("./fonts/", "", $font);
+                            ?>
+                                <option <?php echo $selected; ?> value="<?php echo $font; ?>"><?php echo $font ?></option>
+                            <?php endforeach; ?>
 						</select>
 					</div>
 				</div>
-				
+
 				<label class="sections" for="fontsize">Font Size</label>
 				<input name="controls" type="radio" id="fontsize">
 				<div class="font-size row">
 					<div class="col-xs-12 col-sm-6">
-						<label for="f1size">Timestamp</label>
+						<label for="f1size">Font #1</label>
 						<input type="number" name="f1size" value="52">
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<label for="f2size">Labels</label>
+						<label for="f2size">Font #2</label>
 						<input type="number" name="f2size" value="12">
 					</div>
 				</div>
@@ -85,23 +123,23 @@
 				<input name="controls" type="radio" id="positioning">
 				<div class="font-position row">
 					<div class="col-xs-12 col-sm-6">
-						<label for="f1size">Timestamp X Offset</label>
+						<label for="f1size">Font #1 X Offset</label>
 						<input type="number" name="f1xoffset" value="0">
 						<br>
-						<label for="f2size">Timestamp Y Offset</label>
+						<label for="f2size">Font #1 Y Offset</label>
 						<input type="number" name="f1yoffset" value="-20">
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<label for="f1size">Labels X Offset</label>
+						<label for="f1size">Font #2 X Offset</label>
 						<input type="number" name="f2xoffset" value="0">
 						<br>
-						<label for="f2size">Labels Y Offset</label>
+						<label for="f2size">Font #2 Y Offset</label>
 						<input type="number" name="f2yoffset" value="20">
 					</div>
 				</div>
 
 				<label class="sections" for="fontcolor">Font Color</label>
-				<input name="controls" type="radio" id="fontcolor" checked>
+				<input name="controls" type="radio" id="fontcolor">
 				<div class="font-color">
 					<div class="col-xs-12 col-sm-4 color-range">
 						<label for="red">Red</label>

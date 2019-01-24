@@ -9,27 +9,27 @@ class GIFCounter extends AnimatedGif
 		$this->frames = [];
 		$this->delays = [];
 		$this->loops = 0;
-		$this->font1 = isset($_GET['font1']) ? $_GET['font1'] : 'Verdana.ttf';
-		$this->font2 = isset($_GET['font2']) ? $_GET['font2'] : 'Verdana.ttf';
-		$this->fontsize1 = isset($_GET['f1size']) ? $_GET['f1size'] : 52;
-		$this->fontsize2 = isset($_GET['f2size']) ? $_GET['f2size'] : 12;
-		$this->font1xoffset = isset($_GET['f1xoffset']) ? $_GET['f1xoffset'] : 0;
-		$this->font1yoffset = isset($_GET['f1yoffset']) ? $_GET['f1yoffset'] : -20;
-		$this->font2xoffset = isset($_GET['f2xoffset']) ? $_GET['f2xoffset'] : 0;
-		$this->font2yoffset = isset($_GET['f2yoffset']) ? $_GET['f2yoffset'] : 20;
+		$this->font1 = isset($_REQUEST['font1']) ? $_REQUEST['font1'] : 'Verdana.ttf';
+		$this->font2 = isset($_REQUEST['font2']) ? $_REQUEST['font2'] : 'Verdana.ttf';
+		$this->fontsize1 = isset($_REQUEST['f1size']) ? $_REQUEST['f1size'] : 52;
+		$this->fontsize2 = isset($_REQUEST['f2size']) ? $_REQUEST['f2size'] : 12;
+		$this->font1xoffset = isset($_REQUEST['f1xoffset']) ? $_REQUEST['f1xoffset'] : 0;
+		$this->font1yoffset = isset($_REQUEST['f1yoffset']) ? $_REQUEST['f1yoffset'] : -20;
+		$this->font2xoffset = isset($_REQUEST['f2xoffset']) ? $_REQUEST['f2xoffset'] : 0;
+		$this->font2yoffset = isset($_REQUEST['f2yoffset']) ? $_REQUEST['f2yoffset'] : 20;
 		$this->font_dir = './fonts/';
-		$this->fontcolor = $this->setColor(isset($_GET['fontcolor']) ? $_GET['fontcolor'] : '0,0,0');
-		$this->bgcolor = $this->setColor(isset($_GET['bgcolor']) ? $_GET['bgcolor'] : '255,255,255');
+		$this->fontcolor = $this->setColor(isset($_REQUEST['fontcolor']) ? $_REQUEST['fontcolor'] : '0,0,0');
+		$this->bgcolor = $this->setColor(isset($_REQUEST['bgcolor']) ? $_REQUEST['bgcolor'] : '255,255,255');
 		$this->now = date_create('now');
-		$this->end_date = isset($_GET['enddate']) ? $_GET['enddate'] : 'tomorrow';
-		$this->text = isset($_GET['text']) ? $_GET['text'] : "YOUR NAME";
-		$this->image = isset($_GET['image']) ? $_GET['image'] : null;
-		$this->singleframe = isset($_GET['singleframe']) ? true : false;
+		$this->end_date = isset($_REQUEST['enddate']) ? $_REQUEST['enddate'] : 'tomorrow';
+		$this->text = isset($_REQUEST['text']) ? $_REQUEST['text'] : "TEXT HERE";
+		$this->imageurl = isset($_REQUEST['image']) ? $_REQUEST['image'] : "";
+		$this->imageurltype = isset($_REQUEST['imagetype']) ? $_REQUEST['imagetype'] : false;
 	}
 
 	public function begin()
 	{
-		if ($this->singleframe) {
+		if ($this->imageurltype === "singleframe") {
 			$this->createSingleImage();
 		}
 		else {
@@ -47,18 +47,18 @@ class GIFCounter extends AnimatedGif
 			'y_offset'	=> $this->font1yoffset,
 			'content'	=> $this->text,
 			'font'		=> $this->font_dir . $this->font1,
+            'column'    => 'all',
 		];
 
 		$frame = $this->createFrame();
 		$this->addText($frame, $text);
-		$this->delays[] = 100;
 
 		header('Content-Type: image/jpeg');
 		imagejpeg($frame);
 
 		// wipe image from memory
 		imagedestroy($frame);
-		
+
 	}
 
 	public function createCountDown()
@@ -212,7 +212,7 @@ class GIFCounter extends AnimatedGif
 		}
 
 		// create timestamp frames
-		for ($i = 0; $i <= 60; $i++)
+		for ($i = 0; $i <= 25; $i++)
 		{
 			$date_diff = $this->now->diff($this->end_date);
 
@@ -254,8 +254,8 @@ class GIFCounter extends AnimatedGif
 
 	private function createFrame()
 	{
-		if ($this->image) {
-			$base_img = imagecreatefromjpeg($this->image);
+		if ($this->imageurl) {
+			$base_img = imagecreatefromjpeg($this->imageurl);
 		}
 		else {
 			$base_img = imagecreatetruecolor(600,200);
@@ -276,7 +276,7 @@ class GIFCounter extends AnimatedGif
 		);
 
 		$columwidth = (imagesx($img)/4);
-		$xpos;
+		$xpos = null;
 
 		// column placement
 		switch ($text['column'])

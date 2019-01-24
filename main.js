@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', function ()
 				red : 0,
 				green : 0,
 				blue : 0,
-			}
+			};
 			
 			this.bgcolor = {
 				red : 255,
 				green : 255,
 				blue : 255,
-			}
+			};
 
 			this.fields = {
 				font1 : 'FrutigerLTStd-Black.ttf',
@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function ()
 				f1yoffset : -20,
 				f2xoffset : 0,
 				f2yoffset : 20,
-				enddate : '',
-				text : '',
-				countdown : '',
+				enddate : 'tomorrow',
+				text : 'TEXT HERE',
+				imagetype : 'countdown',
 				image : '',
 			}
 		}
@@ -62,9 +62,42 @@ document.addEventListener('DOMContentLoaded', function ()
 	}
 
 
-	let gifopts = new GIFOpts();
-	let image = document.querySelector('#frame');
-	let options = document.querySelector('.options');
+	const gifopts = new GIFOpts();
+	const image = document.querySelector('#frame');
+	const options = document.querySelector('.options');
+
+	// Switch Image Type
+	options.querySelectorAll('input[name="imagetype"]').forEach(function (input) {
+		input.onclick = function (evt) {
+			if (evt.target.value === "countdown") {
+				// show all fields
+				options.querySelectorAll('.sections, div').forEach(function (label) {
+					label.style.display = '';
+				});
+				// hide single image specific fields
+				options.querySelectorAll('.sections[for="text"], .text').forEach(function (label) {
+					label.style.display = 'none';
+				});
+				// set image type
+				gifopts.fields.imagetype = 'countdown';
+			}
+			else {
+				// show all fields
+				options.querySelectorAll('.sections, div').forEach(function (label) {
+					label.style.display = '';
+				});
+				// hide countdown specific fields
+				options.querySelectorAll('.sections[for="enddate"], .enddate').forEach(function (label) {
+					label.style.display = 'none';
+				});
+				// set image type
+				gifopts.fields.imagetype = 'singleframe';
+			}
+
+			image.src = location.href + 'countdowngif.php' + gifopts.buildQuery();
+			image.parentNode.href = location.href + 'countdowngif.php' + gifopts.buildQuery();
+		};
+	});
 
 	// Update Colors
 
@@ -134,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function ()
 				let http = new XMLHttpRequest();
 				http.open('HEAD', this.input, false);
 				http.send();
-				if (http.status != 200) {
+				if (http.status !== 200) {
 					input.value = '';
 				}
 			}
@@ -150,4 +183,5 @@ document.addEventListener('DOMContentLoaded', function ()
 	image.parentNode.href = location.href + 'countdowngif.php' + gifopts.buildQuery();
 	options.querySelector('select[name="font1"]').value = gifopts.font1;
 	options.querySelector('select[name="font2"]').value = gifopts.font2;
+	options.querySelector('input[id="countdown"]').click();
 });

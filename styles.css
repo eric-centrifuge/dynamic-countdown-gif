@@ -76,11 +76,43 @@ html, body
 .options select
 {
 	outline: none;
-	border: none;
+	border: 1px solid rgb(102, 102, 102);
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
 	margin: 15px 0;
-	padding: 10px 0;
+	padding: 10px;
 	font-size: 1.2rem;
 	max-width: 100%;
+}
+
+.image-type {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-flow: row wrap;
+}
+
+.image-type > label {
+	padding: 5px 7px;
+	border: 1px solid rgb(102, 102, 102);
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	margin-right: 5px;
+}
+
+.image-type > label:hover {
+	cursor: pointer;
+}
+
+.image-type > input:checked + label {
+	background-color: #292929;
+	color: #92aec4;
+}
+
+.image-type > input {
+	display: none;
 }
 
 .color-range
@@ -116,17 +148,17 @@ html, body
 
 .color-range label[for="red"]
 {
-	color: rgba(200,0,0);
+	color: rgba(200,0,0,1);
 }
 
 .color-range label[for="green"]
 {
-	color: rgba(0,200,0);
+	color: rgba(0,200,0,1);
 }
 
 .color-range label[for="blue"]
 {
-	color: rgba(0,0,200);
+	color: rgba(0,0,200,1);
 }
 
 /* Show/Hide Sections
